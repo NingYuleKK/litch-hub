@@ -119,9 +119,11 @@
 
 ## 下一步 Next Actions
 
+- [ ] ~~在 projects/ 目录中新建本文件：`project-conductor.md`~~ ✅ 已完成
+- [ ] 由 Litch 确认产品方向的节点 leader 候选人（例如：鸟哥）
+- [ ] 由子敬和奉孝根据本 spec，提出 Product Cell 的第一版流程草图（可以用 mermaid / 文本描述）
+- [ ] 安排一次 Root × Litch 的专门对话，用于 Phase 0 的基线描绘与成功信号定义
 - [ ] Phase 0：写一份「当前人类 × Agent 协作现状」小结
-- [ ] 确认产品方向节点 leader 人选（鸟哥？）
-- [ ] 为 Product Cell 设计第一条工作流草稿
 
 ---
 
