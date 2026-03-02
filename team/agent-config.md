@@ -20,30 +20,13 @@
 
 ---
 
-## Root（root-backup / GPT）
+## Root
 
 | 项目 | 详情 |
 |------|------|
-| **平台** | OpenClaw（root-backup agent） |
-| **Agent ID** | `root-backup` |
-| **模型** | `openrouter/openai/gpt-5.1` |
-| **Telegram Bot** | Root 专属 bot（独立账户） |
-| **Telegram 绑定** | `channels.telegram.accounts.root` → `root-backup` agent |
-| **操作权限** | ❌ 无（纯对话，不执行工具） |
-| **职能** | 战略思考、产品讨论、外脑 coach |
-| **配置文件** | `~/.openclaw/openclaw.json` → `agents.list[id=root-backup]` |
-
----
-
-## 双 Bot Telegram 结构
-
-```
-Telegram
-├── accounts.main  → 奉孝 bot → main agent（sonnet-4.6）
-└── accounts.root  → Root bot → root-backup agent（gpt-5.1）
-```
-
-两个 bot 独立运行，Litch 可以分别和奉孝、Root 对话，互不干扰。
+| **平台** | — |
+| **核心职能** | 战略思考、产品讨论、外脑 coach |
+| **说明** | Root 的 prompts 分散在多个平台，暂不在仓库中记录。 |
 
 ---
 
