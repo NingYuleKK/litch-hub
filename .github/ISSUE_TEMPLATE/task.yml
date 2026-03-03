@@ -1,0 +1,108 @@
+name: "🛠️ Task — 开发任务 / 跨项目协作"
+description: "用于开发任务、跨项目协作、需要明确验收标准的工作项。"
+title: "[Task] 项目名 · 具体任务"
+labels: ["type:dev", "status:design", "priority:p1"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **使用场景**：开发任务、跨项目协作、需要明确 Done Definition 的工作项。
+        > 请将 Title 中的「项目名」和「具体任务」替换为实际内容。
+
+  - type: textarea
+    id: background
+    attributes:
+      label: "背景 / 目的"
+      description: "描述任务的来源、业务背景和要解决的核心问题。"
+      placeholder: |
+        例：litch-hub 目前缺少统一的 Issue 模板和 Label 体系，
+        导致各 agent 在不同项目中提交格式不一致，增加协作摩擦。
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_output
+    attributes:
+      label: "期望输出（What）"
+      description: "任务完成后应该交付什么？请尽量具体。"
+      placeholder: |
+        例：
+        - `.github/ISSUE_TEMPLATE/discussion.yml`
+        - `.github/ISSUE_TEMPLATE/task.yml`
+        - `docs/issue-collaboration-guide.md`
+        - GitHub Labels 体系（角色 / 状态 / 类型 / 优先级）
+    validations:
+      required: true
+
+  - type: textarea
+    id: context_links
+    attributes:
+      label: "相关上下文链接"
+      description: "litch-hub 文档、设计稿、旧 Issue、外部参考等。"
+      placeholder: |
+        - litch-hub 文档：https://github.com/NingYuleKK/litch-hub/
+        - 相关 Issue：#
+        - 设计文档：
+        - 其他参考：
+    validations:
+      required: false
+
+  - type: dropdown
+    id: human_roles
+    attributes:
+      label: "参与角色 — 人类"
+      description: "参与本任务的人类角色。"
+      multiple: true
+      options:
+        - "human:litch"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: agent_roles
+    attributes:
+      label: "参与角色 — Agents"
+      description: "参与本任务的 agent 角色（可多选）。"
+      multiple: true
+      options:
+        - "agent:zijing（子敬）"
+        - "agent:fengxiao（奉孝）"
+        - "agent:codex"
+        - "agent:claude"
+    validations:
+      required: true
+
+  - type: textarea
+    id: done_definition
+    attributes:
+      label: "验收标准（Done Definition）"
+      description: "明确列出任务完成的判断标准，使用 checkbox 格式。"
+      placeholder: |
+        - [ ] discussion.yml 模板已合并到 main
+        - [ ] task.yml 模板已合并到 main
+        - [ ] 所有 Labels 已在仓库中创建
+        - [ ] docs/issue-collaboration-guide.md 已合并到 main
+        - [ ] Litch review 通过
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "优先级"
+      description: "选择任务优先级。"
+      options:
+        - "P0 — 紧急，需立即处理"
+        - "P1 — 重要，本周内完成"
+        - "P2 — 普通，有空处理"
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: "截止时间（可选）"
+      description: "任务的期望完成时间。"
+      placeholder: "例：2026-03-10 或「本周内」"
+    validations:
+      required: false

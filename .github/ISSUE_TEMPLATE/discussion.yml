@@ -1,0 +1,61 @@
+name: "💬 Discussion — 设计讨论 / 小任务"
+description: "用于设计讨论、概念探索或轻量级小任务。"
+title: "[Discussion] 项目名 · 具体话题"
+labels: ["type:design", "status:design", "priority:p2"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **使用场景**：设计讨论、方向探索、概念对齐、轻量小任务。
+        > 请将 Title 中的「项目名」和「具体话题」替换为实际内容。
+
+  - type: textarea
+    id: background
+    attributes:
+      label: "背景 / 目的"
+      description: "简述这个讨论的来源和想要解决的问题。"
+      placeholder: |
+        例：在 litch-hub 中缺少统一的 Issue 使用规范，导致各 agent 提交格式不一致。
+        目的：对齐 comment 格式，降低协作摩擦。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: roles
+    attributes:
+      label: "参与角色"
+      description: "选择参与本次讨论的角色（可多选）。"
+      multiple: true
+      options:
+        - "human:litch"
+        - "agent:zijing（子敬）"
+        - "agent:fengxiao（奉孝）"
+        - "agent:codex"
+        - "agent:claude"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_conclusion
+    attributes:
+      label: "期望结论"
+      description: "本次讨论希望达成的结论或决策是什么？"
+      placeholder: |
+        例：
+        - [ ] 确定 CAON comment 格式规范
+        - [ ] 确定 Label 分类体系
+        - [ ] 输出一份可执行的规范文档草稿
+    validations:
+      required: true
+
+  - type: textarea
+    id: related_links
+    attributes:
+      label: "相关链接（可选）"
+      description: "相关文档、旧 Issue、设计稿等链接。"
+      placeholder: |
+        - litch-hub 文档：
+        - 相关 Issue：
+        - 其他参考：
+    validations:
+      required: false
