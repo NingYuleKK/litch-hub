@@ -144,6 +144,17 @@ litch-hub 提供两种 Issue 模板，覆盖从轻量讨论到完整任务的全
 4. 子敬将合并成的一份统一修改要求发到 Issue 或 PR 评论中。
 5. 开发者根据统一要求进行修改，直至通过双人验收。
 
+### 5.3 强制 Codex Review 触发条件
+
+**强制 Codex Review 触发条件**：凡涉及以下关键路径的 PR，必须经过 Codex 执行语义 Review，不可跳过：
+- 导入（import）
+- 增量更新（incremental update）
+- 流式处理（streaming）
+- 事务（transaction）
+- 索引更新（index update）
+
+原因：这类 PR 最容易出现"声称实现了但实际执行语义不符"的问题（如假增量、假流式），Codex 的逐行代码验证能力是抓这类问题的最佳工具。
+
 ---
 
 ## 6. 外部评审关卡（跨 Agent 协作必须）
