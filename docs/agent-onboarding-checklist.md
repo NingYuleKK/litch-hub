@@ -11,6 +11,7 @@
 | 1 | 自己的执行看板 | `goals/agents/{角色名}.md` | 了解自己的职责、协作流程、Done Definition |
 | 2 | 多 Agent 分层 Review 协议 | [`docs/multi-agent-review-protocol.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/multi-agent-review-protocol.md) | 了解交付标准、合并规则、分工 Review 模式 |
 | 3 | Issue 协作规范 | [`docs/issue-collaboration-guide.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/issue-collaboration-guide.md) | 了解 CAON comment 格式、Label 体系、Issue 生命周期 |
+| 4 | 多 Agent Bug 处理协议 | [`docs/multi-agent-bug-protocol.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/multi-agent-bug-protocol.md) | 了解 Bug 分类、Owner 指定、根因闭环流程 |
 
 ## 按角色追加
 
