@@ -276,3 +276,4 @@
 ## 10. 相关文档
 
 - [多 Agent Bug 处理协议 v1](multi-agent-bug-protocol.md)：管理合并后的问题闭环，与本协议互补
+- [Agentic Building 验收原则 v1](agentic-building-acceptance-principles.md)：定义验收口径卡和验收四层次框架

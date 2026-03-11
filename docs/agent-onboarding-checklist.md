@@ -12,6 +12,7 @@
 | 2 | 多 Agent 分层 Review 协议 | [`docs/multi-agent-review-protocol.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/multi-agent-review-protocol.md) | 了解交付标准、合并规则、分工 Review 模式 |
 | 3 | Issue 协作规范 | [`docs/issue-collaboration-guide.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/issue-collaboration-guide.md) | 了解 CAON comment 格式、Label 体系、Issue 生命周期 |
 | 4 | 多 Agent Bug 处理协议 | [`docs/multi-agent-bug-protocol.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/multi-agent-bug-protocol.md) | 了解 Bug 分类、Owner 指定、根因闭环流程 |
+| 5 | Agentic Building 验收原则 | [`docs/agentic-building-acceptance-principles.md`](https://github.com/NingYuleKK/litch-hub/blob/main/docs/agentic-building-acceptance-principles.md) | 了解验收口径卡、验收四层次框架、验收是整个协作体系的底层哲学 |
 
 ## 按角色追加
 

@@ -132,6 +132,8 @@ Bug 处理协议与[多 Agent 分层 Review 协议 v1](multi-agent-review-protoc
 
 两者共同确保：**每一个问题都有明确的 Owner、每一个修复都有对应的纪律沉淀。**
 
+- [Agentic Building 验收原则 v1](agentic-building-acceptance-principles.md)：验收是整个协作体系的底层哲学
+
 ---
 
 ## 7. 快速口令
