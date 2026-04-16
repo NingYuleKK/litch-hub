@@ -1,10 +1,11 @@
 # Noonpost V0.7 Spec — 基调校准 · tone-rebalance
 
-> **版本**：V1.0 初稿  
-> **日期**：2026-04-15  
+> **版本**：V1.1（Root 评审修订版）  
+> **日期**：2026-04-16  
 > **作者**：子敬（鲁肃）  
-> **状态**：待 Litch + Root 评审  
-> **前置版本**：V0.6b mission-bag-rewire（已合并）
+> **状态**：Root 评审通过，4 条硬钉已补，可开工  
+> **前置版本**：V0.6b mission-bag-rewire（已合并）  
+> **Root 评审日期**：2026-04-16
 
 ---
 
@@ -71,9 +72,43 @@ V0.6b 验收中 Litch 发现 7 个问题，归为 3 层根因：
 
 ## 三、方案设计
 
+### 改动 A0：traveler.yaml 同步更新（Root H1）
+
+> **Root 硬钉 H1**：traveler.yaml 必须同步更新，不要只在 prompt 里偷改。两套真相并存是隐患。
+
+将好奇心从 `what_emerges_naturally` 移到 `core_traits`：
+
+```yaml
+# traveler.yaml
+core_traits:
+  sensory: >
+    用鼻子和耳朵认识世界。夜里或危险时，常先听到、闻到；
+    白天开阔的时候，也会先看见。
+  curiosity: >                    # ← 从 what_emerges_naturally 移入
+    对没见过的东西特别好奇。新的建筑、新的食物、新的风景、
+    没闻过的味道，都会凑过去看很久。
+    好奇心总是比害怕大一点。看到危险的东西，先躲，然后偷偷回头看。
+  food: >
+    遇到吃的一定要试。吃到好吃的会忘记害怕。
+    吃到的味道会认真描述——好吃就说好吃，难吃也说难吃。
+  difference: >
+    跟长安不一样的东西会特别留意，
+    但不会说"这跟中原不同"——它只说
+    "这里的饼不是蒸的，是贴在炉壁上烤的"。
+
+what_emerges_naturally:
+  # 好奇心已移入 core_traits，不再列于此
+  - "勇敢：从行为里涌现——按住铃铛继续走的时候，勇敢自己就出来了"
+  - "想家：从寄东西的选择涌现——不说想家，但寄回去的东西说了一切"
+  - "对历史的敏感：从驻足行为涌现——不知道那是什么，但觉得它在等人"
+  - "倔强：从不放弃前进涌现——害怕但还是走了"
+```
+
+**原则**：SYSTEM_PROMPT 和 traveler.yaml 保持单一真相源。SYSTEM_PROMPT 的人格描述从 traveler.yaml 的 core_traits 生成，不手动维护两份。
+
 ### 改动 A：SYSTEM_PROMPT 人格校准
 
-在"你是谁"部分增加两条：
+在"你是谁"部分增加两条（与 traveler.yaml core_traits 保持一致）：
 
 ```
 你是谁：
@@ -85,14 +120,15 @@ V0.6b 验收中 Litch 发现 7 个问题，归为 3 层根因：
 - 害怕的时候会害怕，但好奇心总是比害怕大一点。看到危险的东西，先躲，然后偷偷回头看。  ← 新增
 ```
 
-在"写信规则"部分增加发现弧和远景引导：
+在"写信规则"部分增加发现弧和远景引导（Root 软建议："远景先起，近景落脚，人和事件压后"）：
 
 ```
 写信规则：
 - 短句到中短句，具体，感官化。像小动物写日记，不是散文。
 - 用动作和气味代替形容词。多写闻到的、听到的、看到的、尝到的。
-- 每封信至少写一个你能看见的远处画面——一段山、一条河、一片天、一片沙丘。先写远处看到的，再写近处闻到的。  ← 修改
+- 远景先起，近景落脚，人和事件压后。每封信先写一个你能看见的远处画面——一段山、一条河、一片天、一片沙丘，再写近处闻到的、摸到的。  ← 修改
 - 看到没见过的东西，写下来。不用解释它是什么，写你怎么发现它的、它摸起来/闻起来/尝起来什么样。  ← 新增
+- 吃到东西要有判断——好吃就说好吃，难吃也说难吃，不要所有食物都一样地描述。  ← 新增
 - 信件长度会在下方指定。
 - 每封信最多一句轻微情绪，不要整封都在抒情。
 - 禁用词：令我、使我、不禁、仿佛、宛如、遂、竟
@@ -121,7 +157,9 @@ return '继续往前走，鼻子先行。';
 
 **核心变化**：把"疲惫/紧张"替换为"认得/看得更仔细/变大了一点"。保留身体累的真实感，但情绪基调从"求生"转向"成长"。
 
-### 改动 C：节点圣经增加 discoveries 字段
+### 改动 C：节点圣经增加 discoveries 字段（可选发现层，Root H2）
+
+> **Root 硬钉 H2**：discoveries 不是"第六个固定槽位"，而是"可选发现层（optional overlay）"。发现层是火花，不是标配菜。
 
 在 NODE_BIBLE_STANDARD.md 的 views 层新增 `discoveries` 字段定义：
 
@@ -154,6 +192,12 @@ discoveries:
 - **surprise**：聆的认知惊喜（用自己的方式理解，不是百科解释）
 
 **每个节点至少 4 个 discoveries**，覆盖不同感官类型。
+
+**关键约束（Root H2）**：discoveries 是可选覆盖层（optional overlay），不是第六个固定槽位。实现时必须遵守：
+- 5 槽位骨架不变，discoveries 不占槽位编号
+- 采样概率 30-40%，不是每封信都有
+- 与 scene_anchor / history_anchor / progress_anchor 做去重：如果本拍已抽到的 anchor 和某个 discovery 指向同一块信息，则跳过该 discovery
+- 一句话：发现层是火花，不是标配菜
 
 ### 改动 D：localProducts 正负平衡重写
 
@@ -210,7 +254,11 @@ localProducts: |
 
 **每个节点精修流程**：按 NODE_BIBLE_STANDARD.md 的四阶段流程（调研 → 初稿 → 审阅 → 定稿），子敬负责。
 
-### 改动 G：信件标题去重
+### 改动 G：信件标题去重 + 程序后置检查（Root H3）
+
+> **Root 硬钉 H3**：标题去重不能只靠 prompt 规则，必须加一个轻量程序后置检查。
+
+**第一层：prompt 引导**
 
 修改 `formatRecentJournal`，同时传入 title 和 summary：
 
@@ -228,23 +276,60 @@ function formatRecentJournal(input: LetterGenerationInput): string {
 - 标题不可与最近 5 封信的标题相同或高度相似。
 ```
 
-**前置条件**：recentJournal 的数据结构中需要包含 title 字段。需要检查 journal 的存储和读取逻辑是否已经保存了 title。
+**第二层：程序后置检查（Root H3 要求）**
 
-### 改动 H：prompts.ts 增加 discoveries 采样
-
-在 `buildSlotContext` 中新增 discoveries 采样槽位：
+在 letter-generator.ts 中，LLM 返回标题后，执行轻量相似判断：
 
 ```typescript
-// Slot 6: discovery_anchor (可选, ~40%)
-const discovery = pickDiscovery(bible, beatSeed5);
+function isTitleTooSimilar(newTitle: string, recentTitles: string[]): boolean {
+  const normalize = (t: string) => t
+    .replace(/[，。！？、\s]/g, '')  // 去标点和空格
+    .toLowerCase();
+  const norm = normalize(newTitle);
+  return recentTitles.some(old => {
+    const oldNorm = normalize(old);
+    // 完全相同
+    if (norm === oldNorm) return true;
+    // 一方包含另一方（"大月氏到了" vs "大月氏，到了"）
+    if (norm.includes(oldNorm) || oldNorm.includes(norm)) return true;
+    // 共享前缀超过 60%（"大月氏，我到了" vs "大月氏到了，带回三样东西"）
+    const minLen = Math.min(norm.length, oldNorm.length);
+    let shared = 0;
+    for (let i = 0; i < minLen; i++) {
+      if (norm[i] === oldNorm[i]) shared++; else break;
+    }
+    if (shared / minLen > 0.6) return true;
+    return false;
+  });
+}
+```
+
+如果 `isTitleTooSimilar` 返回 true，自动 retry 一次（在 prompt 中追加"上一次生成的标题和之前的太像了，请换一个完全不同的标题"）。最多 retry 1 次，第二次仍然相似则接受（避免无限循环）。
+
+**前置条件**：recentJournal 的数据结构中需要包含 title 字段。需要检查 journal 的存储和读取逻辑是否已经保存了 title。
+
+### 改动 H：prompts.ts 增加 discoveries 可选覆盖层
+
+在 `buildSlotContext` 中，5 槽位骨架之后，增加 discoveries 可选覆盖层：
+
+```typescript
+// Optional overlay: discovery (30-40%, not a fixed slot)
+const discovery = pickDiscovery(bible, beatSeed5, sections);
 if (discovery) {
   sections.push(`【路上发现的新东西】\n${discovery}`);
 }
 ```
 
-`pickDiscovery` 函数从 `bible.views.letter.discoveries` 中随机选一个，注入 what + how_found + surprise。
+`pickDiscovery` 函数逻辑：
+1. 从 `bible.views.letter.discoveries` 中随机选一个候选
+2. 与已采样的 sections 做去重：如果候选 discovery 的 what 与已有 scene_anchor / history_anchor 的内容高度重叠，则跳过
+3. 以 30-40% 概率决定是否注入
+4. 注入 what + how_found + surprise
 
-**采样概率 ~40%**：不是每封信都有发现，但比 history_anchor（30%）更频繁。发现感是这个产品的核心体验。
+**关键约束**（Root H2）：
+- 这不是第六个槽位，是覆盖层
+- 不与已有 anchor 重复
+- 概率 30-40%，不是每封信都有
 
 ---
 
@@ -252,29 +337,33 @@ if (discovery) {
 
 | 改动 | 文件 | 复杂度 | 负责人 |
 |------|------|--------|--------|
+| A0: traveler.yaml 同步更新 | data/traveler.yaml | 低 | CC |
 | A: SYSTEM_PROMPT 人格校准 | engine/prompts.ts | 低 | CC |
 | B: journey_arc_modifier 重写 | engine/prompts.ts | 低 | CC |
 | C: discoveries 字段定义 + 类型 | engine/node-bible.ts, docs/NODE_BIBLE_STANDARD.md | 低 | CC |
 | D: localProducts 正负平衡 | data/nodes/*.yaml, data/world.yaml | 中 | 子敬 |
 | E: bodyFeelHooks 正负平衡 | data/nodes/*.yaml | 低 | 子敬 |
 | F: 6 个旧节点完整精修 | data/nodes/ 新增 6 个 YAML | 高 | 子敬 |
-| G: 信件标题去重 | engine/prompts.ts, engine/types.ts | 低 | CC |
-| H: discoveries 采样注入 | engine/prompts.ts | 低 | CC |
+| G: 信件标题去重 + 程序后置检查 | engine/prompts.ts, engine/letter-generator.ts, engine/types.ts | 中 | CC |
+| H: discoveries 可选覆盖层 | engine/prompts.ts | 低 | CC |
 
 ---
 
 ## 五、Phase 拆分
 
 ### Phase 1：聆的基调校准（CC）
+- 改动 A0：traveler.yaml 同步更新（Root H1）
 - 改动 A：SYSTEM_PROMPT 人格校准
 - 改动 B：journey_arc_modifier 重写
-- 改动 G：信件标题去重
+- 改动 G：信件标题去重 + 程序后置检查（Root H3）
 - 改动 C：discoveries 类型定义（为 Phase 3 做准备）
 
 **验收标准**：
-- SYSTEM_PROMPT 包含"好奇心"和"好奇心比害怕大一点"
+- traveler.yaml 的 core_traits 包含 curiosity，what_emerges_naturally 不再包含好奇心
+- SYSTEM_PROMPT 包含"好奇心"和"好奇心比害怕大一点"，与 traveler.yaml 保持一致
 - journey_arc 四段文案不含"疲惫""紧张"
 - recentJournal 传入 title + summary
+- isTitleTooSimilar 后置检查 + 自动 retry 逻辑实现
 - tsc clean, 全量测试通过
 
 ### Phase 2：节点圣经精修（子敬）
@@ -292,16 +381,17 @@ if (discovery) {
 - 所有节点通过时间线审核
 - 旧节点的 world.yaml 中 bible 字段保留（向后兼容），但新增 nodeBibleFile 指向精修 YAML
 
-### Phase 3：discoveries 采样注入 + 集成（CC）
-- 改动 H：prompts.ts 增加 discoveries 采样
+### Phase 3：discoveries 可选覆盖层 + 集成（CC）
+- 改动 H：prompts.ts 增加 discoveries 可选覆盖层（Root H2）
 - 旧节点切换到新 prompt 路径（删除 legacy fallback 或保留但不再被新节点触发）
 - 集成测试：模拟 16 拍旅程，验证信件基调变化
 
 **验收标准**：
-- discoveries 以 ~40% 概率注入信件 prompt
+- discoveries 以 30-40% 概率作为可选覆盖层注入（不是固定槽位）
+- discoveries 与 scene_anchor / history_anchor 做去重，不重复注入同一块信息
 - 所有 9 个节点走新 prompt 路径
 - 模拟器跑 3 趟旅程，信件中至少 30% 包含发现/惊喜类描写
-- 信件标题无重复
+- 信件标题无重复（程序后置检查生效）
 
 ### Phase 4：Litch 手工验收
 - 本地跑 3 趟完整旅程
@@ -335,15 +425,27 @@ if (discovery) {
 
 ---
 
-## 七、开放问题
+## 七、Root 评审裁决记录
 
-1. **匈奴王庭的 stayDuration [4, 8] 是否需要调整？** 这是信件重复感最强的节点。可选方案：缩短到 [3, 5]，或在 prompt 中加入"在同一个地方待久了，开始注意到之前没注意到的细节"的引导。
+### 已裁决（4 条硬钉）
 
-2. **discoveries 的采样概率 40% 是否合适？** 太高会让每封信都有"发现"，失去惊喜感；太低又回到老问题。可能需要模拟器调参。
+| 编号 | 硬钉 | Root 裁决 | 落实改动 |
+|------|------|----------|----------|
+| H1 | traveler.yaml 必须同步更新 | 要，同步改。不要让两套真相并存 | 新增改动 A0 |
+| H2 | discoveries 不是第六固定槽位 | 改为可选覆盖层（optional overlay），30-40% | 修订改动 C、H |
+| H3 | 标题去重加程序后置检查 | 加 normalize + 轻量相似判断 + 自动 retry 一次 | 修订改动 G |
+| H4 | 匈奴王庭 stayDuration 先不改 | 先修内容与提示，跑几轮再看 | Phase 2 精修时加"久留分层"提示 |
 
-3. **旧节点精修的审阅流程是否简化？** 6 个节点如果每个都走"Litch + Root + Vox 三方审阅"，周期会很长。建议：P0 节点（匈奴王庭、陇西）走完整审阅，P1/P2 节点子敬自审 + Litch 抽检。
+### Root 软建议（已采纳）
 
-4. **是否需要更新 traveler.yaml？** 当前 `what_emerges_naturally` 把好奇心归为"自然涌现"，但 V0.7 的改动是把好奇心显式写入 prompt。traveler.yaml 需要同步更新，把好奇心从"自然涌现"移到 `core_traits`。
+1. **正负平衡不走到另一端**：不要把聆写成旅游博主。最好的比例是"有艰难，但艰难不压倒发现"。
+2. **远景先起，近景落脚，人和事件压后**：已写入改动 A 的写信规则。
+
+### 剩余开放问题
+
+1. **discoveries 的采样概率 30-40% 具体取多少？** 可能需要模拟器调参。初始值建议 35%。
+
+2. **旧节点精修的审阅流程是否简化？** 建议：P0 节点（匈奴王庭、陇西）走完整审阅，P1/P2 节点子敬自审 + Litch 抽检。
 
 ---
 
@@ -351,10 +453,10 @@ if (discovery) {
 
 ### 技术风险
 - **旧节点切换新路径时可能有类型不匹配**：新精修的 YAML 需要严格符合 NodeBible 类型定义，否则 tsc 报错或运行时 crash
-- **discoveries 采样和 sceneAnchors 采样可能冲突**：同一封信如果既有 scene_anchor 又有 discovery，prompt 可能过长或信息重复
+- **discoveries 采样和 sceneAnchors 采样可能冲突**：同一封信如果既有 scene_anchor 又有 discovery，prompt 可能过长或信息重复。Root H2 已要求做去重，实现时需要定义"同一块信息"的判断标准
 
 ### 产品风险
-- **基调校准过度**：如果正面感官加太多，聆可能变成"一切都好棒"的旅游博主，失去"小动物在真实世界中"的质感。需要保持正负平衡，不是全正面。
+- **基调校准过度**：如果正面感官加太多，聆可能变成"一切都好棒"的旅游博主，失去"小动物在真实世界中"的质感。Root 明确提醒："有艰难，但艰难不压倒发现"。需要保持正负平衡，不是全正面。
 - **6 个节点精修周期长**：如果每个节点都精修到河西走廊的质量，可能需要 2-3 天。建议分批交付。
 
 ---
